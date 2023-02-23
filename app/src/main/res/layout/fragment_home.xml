@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_banner"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:lineSpacingMultiplier="1.5"
+            android:text="@string/title_home"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/mine_shaft"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/button_search"
+            style="@style/image_button"
+            android:src="@drawable/ic_search_24_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/wild_sand"
+        app:layout_constraintTop_toBottomOf="@+id/layout_banner" />
+
+    <com.example.airpollutionmonitor.ui.widget.NestedScrollableHost
+        android:id="@+id/host"
+        android:layout_marginTop="6dp"
+        android:layout_width="0dp"
+        android:layout_height="84dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/banner_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            tools:listitem="@layout/item_banner_list"/>
+
+    </com.example.airpollutionmonitor.ui.widget.NestedScrollableHost>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/air_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:background="@null"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/host"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_progress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        tools:visibility="visible">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_network_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/img_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/img_loading_failed"
+            app:layout_constraintBottom_toTopOf="@+id/text_error_message1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/text_error_message1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vd_dp16"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="@string/error_load_fail"
+            android:textColor="@color/mine_shaft"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_error" />
+
+        <TextView
+            android:id="@+id/text_error_message2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/error_load_fail_2"
+            android:textColor="@color/mine_shaft_30"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_error_message1" />
+
+        <TextView
+            android:id="@+id/text_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_refresh_btn"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingStart="@dimen/vd_dp24"
+            android:paddingTop="@dimen/vd_dp8"
+            android:paddingEnd="@dimen/vd_dp24"
+            android:paddingBottom="@dimen/vd_dp8"
+            android:text="@string/refresh"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_error_message2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

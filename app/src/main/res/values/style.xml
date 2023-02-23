@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="image_button">
+        <item name="android:layout_width">@dimen/ic_touch_area</item>
+        <item name="android:layout_height">@dimen/ic_touch_area</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">?android:attr/actionBarItemBackground</item>
+    </style>
+
+    <style name="word_normal">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/mine_shaft</item>
+    </style>
+
+    <style name="word_bold">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/mine_shaft</item>
+    </style>
+
+</resources>

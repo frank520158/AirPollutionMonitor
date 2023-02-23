@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="title_home">空氣污染</string>
+    <string name="error_load_fail">加載錯誤</string>
+    <string name="error_load_fail_2">請點選按鈕更新</string>
+    <string name="refresh">更新</string>
+</resources>

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">AirPollutionMonitor</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="title_home">Air Pollution</string>
+    <string name="title_search">SearchFragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="status_good">The status is good, we want to go out to have fun</string>
+    <string name="error_load_fail">Loading failed</string>
+    <string name="error_load_fail_2">Please refresh it</string>
+    <string name="refresh">Refresh</string>
 </resources>

@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="picton_blue">#2887EC</color>
+    <color name="wild_sand">#FFF5F5F5</color>
+    <color name="mine_shaft">#FF2F2F2F</color>
+    <color name="mine_shaft_30">#4C2F2F2F</color>
 </resources>
