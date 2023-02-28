@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.airpollutionmonitor.R
+import com.example.airpollutionmonitor.data.model.AirPolluteList
+import com.example.airpollutionmonitor.data.model.RecordsItem
 import com.example.airpollutionmonitor.databinding.FragmentHomeBinding
 import com.example.airpollutionmonitor.ui.widget.HorizontalSpaceItemDecoration
 import com.example.airpollutionmonitor.ui.widget.StartLinearSnapHelper
@@ -25,6 +28,7 @@ class HomeFragment : Fragment() {
 
     private var bannerListAdapter = BannerListAdapter()
     private var airPollutionListAdapter = AirPollutionListAdapter()
+    private var allAirDataList = mutableListOf<RecordsItem>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +51,10 @@ class HomeFragment : Fragment() {
                         binding.airRecycler.isVisible = true
                         binding.bannerRecycler.isVisible = true
                         binding.layoutNetworkError.isVisible = false
+                        allAirDataList.clear()
+                        if (it.originList.isNotEmpty()) {
+                            allAirDataList.addAll(it.originList)
+                        }
                         bannerListAdapter.setData(it.bannerList)
                         airPollutionListAdapter.setData(it.mainList)
                     }
@@ -81,7 +89,9 @@ class HomeFragment : Fragment() {
         }
 
         binding.buttonSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_to_SearchFragment)
+            val airPolluteList = AirPolluteList()
+            airPolluteList.addAll(allAirDataList)
+            findNavController().navigate(HomeFragmentDirections.actionToSearchFragment(airPolluteList))
         }
 
         binding.textRefresh.setOnClickListener {

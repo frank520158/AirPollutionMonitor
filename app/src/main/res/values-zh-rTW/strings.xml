@@ -4,4 +4,7 @@
     <string name="error_load_fail">加載錯誤</string>
     <string name="error_load_fail_2">請點選按鈕更新</string>
     <string name="refresh">更新</string>
+    <string name="input_site_name_hint">請輸入「站名」</string>
+    <string name="search_site_name_tips">輸入「站名」查詢該地區空汙資訊</string>
+    <string name="search_empty_message">找不到「%s」相關的空污資訊</string>
 </resources>

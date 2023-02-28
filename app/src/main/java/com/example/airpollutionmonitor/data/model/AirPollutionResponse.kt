@@ -1,15 +1,15 @@
 package com.example.airpollutionmonitor.data.model
 
+import android.os.Parcelable
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
-
+import kotlinx.parcelize.Parcelize
 
 data class AirPollutionResponse(
     @SerializedName("total")
     val total: String = "",
     @SerializedName("offset")
     val offset: String = "",
-    /*@SerializedName("_links")
-    val Links: Links,*/
     @SerializedName("records")
     val records: List<RecordsItem>?,
     @SerializedName("resource_format")
@@ -18,8 +18,6 @@ data class AirPollutionResponse(
     val limit: String = "",
     @SerializedName("resource_id")
     val resourceId: String = "",
-   /* @SerializedName("__extras")
-    val Extras: Extras,*/
     @SerializedName("include_total")
     val includeTotal: Boolean = false
 )
@@ -75,26 +73,7 @@ data class RecordsItem(
 )
 
 
-data class FieldsItem(@SerializedName("id")
-                      val id: String = "",
-                      @SerializedName("type")
-                      val type: String = "",
-                      @SerializedName("info")
-                      val info: Info)
-
-
-
-data class Links(@SerializedName("next")
-                 val next: String = "",
-                 @SerializedName("start")
-                 val start: String = "")
-
-
-data class Extras(@SerializedName("api_key")
-                  val apiKey: String = "")
-
-
-data class Info(@SerializedName("label")
-                val label: String = "")
-
+@Keep
+@Parcelize
+class AirPolluteList : ArrayList<RecordsItem>(), Parcelable
 

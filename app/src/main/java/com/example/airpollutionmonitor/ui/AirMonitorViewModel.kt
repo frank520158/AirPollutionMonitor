@@ -25,19 +25,22 @@ class AirMonitorViewModel(
     fun fetchAirMonitorList() = viewModelScope.launch(Dispatchers.IO) {
         when (val response = airPollutionRepository.getAirMonitorData()) {
             is ApiResultWrapper.Success -> {
-
+                val originDataList = mutableListOf<RecordsItem>()
                 val bannerDataList = mutableListOf<RecordsItem>()
                 val mainDataList = mutableListOf<RecordsItem>()
 
-                response.value.records?.forEach { item->
-                    if (item.pm2_5.isNotEmpty() && item.pm2_5.toInt() > DATA_THRESHOLD_VALUE) {
-                        mainDataList.add(item)
-                    } else {
-                        bannerDataList.add(item)
+                response.value.records?.run {
+                    forEach {item->
+                        if (item.pm2_5.isNotEmpty() && item.pm2_5.toInt() > DATA_THRESHOLD_VALUE) {
+                            mainDataList.add(item)
+                        } else {
+                            bannerDataList.add(item)
+                        }
                     }
+                    originDataList.addAll(this)
                 }
                 Timber.d("banner size: ${bannerDataList.size}, main size:${mainDataList.size}")
-                val event = Event(AirMonitorUiState.Success(bannerDataList, mainDataList))
+                val event = Event(AirMonitorUiState.Success(originDataList, bannerDataList, mainDataList))
                 _airMonitorUiState.postValue(event)
             }
             is ApiResultWrapper.Failure -> {
@@ -55,7 +58,7 @@ class AirMonitorViewModel(
 }
 
 sealed class AirMonitorUiState {
-    data class Success(val bannerList: List<RecordsItem>, val mainList: List<RecordsItem>) : AirMonitorUiState()
+    data class Success(val originList:List<RecordsItem>, val bannerList: List<RecordsItem>, val mainList: List<RecordsItem>) : AirMonitorUiState()
     data class Error(val msg: String) : AirMonitorUiState()
     data class NetworkError(val msg: String) : AirMonitorUiState()
 }

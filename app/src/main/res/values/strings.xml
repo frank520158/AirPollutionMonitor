@@ -4,11 +4,12 @@
     <!-- Strings used for fragments for navigation -->
     <string name="title_home">Air Pollution</string>
     <string name="title_search">SearchFragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
     <string name="status_good">The status is good, we want to go out to have fun</string>
     <string name="error_load_fail">Loading failed</string>
     <string name="error_load_fail_2">Please refresh it</string>
     <string name="refresh">Refresh</string>
+    <string name="input_site_name_hint">Please input site name</string>
+    <string name="search_site_name_tips">Input the "station name" to query the air pollution information in the area</string>
+    <string name="search_empty_message">No air pollution information related to "%s" could be found</string>
 </resources>

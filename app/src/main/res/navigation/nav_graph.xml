@@ -17,9 +17,13 @@
     </fragment>
     <fragment
         android:id="@+id/SearchFragment"
-        android:name="com.example.airpollutionmonitor.ui.SearchFragment"
+        android:name="com.example.airpollutionmonitor.ui.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search">
+
+        <argument
+            android:name="air_pollute_list"
+            app:argType="com.example.airpollutionmonitor.data.model.AirPolluteList" />
 
     </fragment>
 </navigation>
