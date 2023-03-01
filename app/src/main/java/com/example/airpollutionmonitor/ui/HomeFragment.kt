@@ -1,24 +1,26 @@
 package com.example.airpollutionmonitor.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.airpollutionmonitor.R
 import com.example.airpollutionmonitor.data.model.AirPolluteList
 import com.example.airpollutionmonitor.data.model.RecordsItem
 import com.example.airpollutionmonitor.databinding.FragmentHomeBinding
 import com.example.airpollutionmonitor.ui.widget.HorizontalSpaceItemDecoration
 import com.example.airpollutionmonitor.ui.widget.StartLinearSnapHelper
 import com.example.airpollutionmonitor.util.safeNavigate
-import timber.log.Timber
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class HomeFragment : Fragment() {
@@ -45,36 +47,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated")
         initView();
-        viewModel.airMonitorUiState.observe(viewLifecycleOwner) { state ->
-            state.getContentIfNotHandled()?.let {
-                binding.rlProgress.isVisible = false
-                when(it) {
-                    is AirMonitorUiState.Success -> {
-                        binding.airRecycler.isVisible = true
-                        binding.bannerRecycler.isVisible = true
-                        binding.layoutNetworkError.isVisible = false
-                        allAirDataList.clear()
-                        if (it.originList.isNotEmpty()) {
-                            allAirDataList.addAll(it.originList)
-                        }
-                        bannerListAdapter.setData(it.bannerList)
-                        airPollutionListAdapter.setData(it.mainList)
-                    }
-
-                    is AirMonitorUiState.Error, is AirMonitorUiState.NetworkError -> {
-                        binding.layoutNetworkError.isVisible = true
-                        binding.airRecycler.isVisible = false
-                        binding.bannerRecycler.isVisible = false
-                    }
-                }
-            }
-        }
-
+        observeData()
         loadData()
     }
 
     private fun initView() {
-        binding.rlProgress.isVisible = true
         with(binding.bannerRecycler) {
             layoutManager =
                 LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -102,6 +79,40 @@ class HomeFragment : Fragment() {
             binding.rlProgress.isVisible = true
             binding.layoutNetworkError.isVisible = false
             loadData()
+        }
+    }
+
+    private fun observeData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.statusFlow.collect{
+                    when(it) {
+                        is AirMonitorUiState.Success -> {
+                            binding.rlProgress.isVisible = false
+                            binding.airRecycler.isVisible = true
+                            binding.bannerRecycler.isVisible = true
+                            binding.layoutNetworkError.isVisible = false
+                            allAirDataList.clear()
+                            if (it.originList.isNotEmpty()) {
+                                allAirDataList.addAll(it.originList)
+                            }
+                            bannerListAdapter.setData(it.bannerList)
+                            airPollutionListAdapter.setData(it.mainList)
+                        }
+
+                        is AirMonitorUiState.Error, is AirMonitorUiState.NetworkError,-> {
+                            binding.rlProgress.isVisible = false
+                            binding.layoutNetworkError.isVisible = true
+                            binding.airRecycler.isVisible = false
+                            binding.bannerRecycler.isVisible = false
+                        }
+
+                        is AirMonitorUiState.Loading -> {
+                            binding.rlProgress.isVisible = true
+                        }
+                    }
+                }
+            }
         }
     }
 
