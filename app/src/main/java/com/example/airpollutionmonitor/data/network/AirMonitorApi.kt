@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface AirMonitorApi {
 
-    @GET("api/v2/aqx_p_432?format=json")
+    @GET("api/v2/aqx_p_432?sort=ImportDate%20desc&format=json")
     suspend fun getAirPollution(
         @Query("limit") limit: Int,
     ): AirPollutionResponse
