@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.airpollutionmonitor.R
 import com.example.airpollutionmonitor.data.model.AirPolluteList
@@ -15,6 +16,7 @@ import com.example.airpollutionmonitor.data.model.RecordsItem
 import com.example.airpollutionmonitor.databinding.FragmentHomeBinding
 import com.example.airpollutionmonitor.ui.widget.HorizontalSpaceItemDecoration
 import com.example.airpollutionmonitor.ui.widget.StartLinearSnapHelper
+import com.example.airpollutionmonitor.util.safeNavigate
 import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -87,12 +89,13 @@ class HomeFragment : Fragment() {
             layoutManager =
                 LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
             adapter = airPollutionListAdapter
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
 
         binding.buttonSearch.setOnClickListener {
             val airPolluteList = AirPolluteList()
             airPolluteList.addAll(allAirDataList)
-            findNavController().navigate(HomeFragmentDirections.actionToSearchFragment(airPolluteList))
+            findNavController().safeNavigate(HomeFragmentDirections.actionToSearchFragment(airPolluteList))
         }
 
         binding.textRefresh.setOnClickListener {

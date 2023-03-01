@@ -104,6 +104,8 @@ class SearchFragment : Fragment() {
                     }
                 }
             }
+        } else {
+            binding.tvSearchMsg.text = String.format(getString(R.string.search_empty_message, search))
         }
     }
 
