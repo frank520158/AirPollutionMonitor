@@ -72,6 +72,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() {
+        binding.rlProgress.isVisible = true
         with(binding.bannerRecycler) {
             layoutManager =
                 LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
