@@ -39,10 +39,6 @@ class BannerListAdapter : RecyclerView.Adapter<BannerListAdapter.BannerItemViewH
         holder.tvPmValue.text = item.pm2_5
         holder.tvCounty.text = item.county
         holder.tvStatus.text = item.status
-
-        /*holder.imageLayout.setOnClickListener {
-            listener?.onItemClick(item)
-        }*/
     }
 
     override fun getItemCount(): Int = airItemList.size
@@ -55,8 +51,4 @@ class BannerListAdapter : RecyclerView.Adapter<BannerListAdapter.BannerItemViewH
         val tvCounty = binding.tvCounty
         val tvStatus = binding.tvStatus
     }
-
-    /*interface OnClickListener {
-        fun onItemClick(data: TrendingWebsite)
-    }*/
 }
